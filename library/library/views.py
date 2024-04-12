@@ -1,6 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.request import Request
 from rest_framework.permissions import AllowAny
+from rest_framework import status
 
 from .models import Author, Book
 
@@ -83,6 +85,22 @@ class BooksAPI(APIView):
 
     def initial(self, request, *args, **kwargs):
         permission_classes = [AllowAny]
+
+    def get(self, request, pk=None):
+        # read Request info
+        print('Method:', request.method)
+        print('Query params:', request.query_params)
+        print('Headers:', request.headers)
+        print('Body:', request.data)
+
+        # generate Response
+        response = Response(
+            status=status.HTTP_200_OK,
+            headers={},
+            data={}
+        )
+
+        return response
 
     def post(self, request):
         Book(title=request.data['title']).save()

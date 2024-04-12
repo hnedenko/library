@@ -17,8 +17,19 @@ from django.contrib import admin
 from django.urls import path
 from .views import AuthorsAPI, BooksAPI
 
+from rest_framework import routers
+router = routers.SimpleRouter()
+
+router.register(r'admin', admin.site.urls)
+router.register(r'authors', AuthorsAPI)
+router.register(r'books', BooksAPI)
+
+urlpatterns = router.urls
+
+"""
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('authors/', AuthorsAPI.as_view()),
     path('books/', BooksAPI.as_view()),
 ]
+"""
